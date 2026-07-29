@@ -1,185 +1,70 @@
-//======================================
-// DASHBOARD - NOVATECH SOLUTIONS
-//======================================
+document.addEventListener('DOMContentLoaded', function() {
+    cargarDashboard();
+});
 
-// Esperar a que cargue la página
-document.addEventListener("DOMContentLoaded", function () {
+function cargarDashboard() {
+    fetch('php/dashboard.php')
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('totEmpleados').textContent = data.tarjetas.empleados;
+            document.getElementById('totCapacitaciones').textContent = data.tarjetas.capacitaciones;
+            document.getElementById('totInscripciones').textContent = data.tarjetas.inscripciones;
+            document.getElementById('totCertificados').textContent = data.tarjetas.certificados;
 
-    //======================================
-    // GRÁFICO DE CAPACITACIONES
-    //======================================
-
-    const ctx = document.getElementById("graficoCapacitaciones");
-
-    if (ctx) {
-
-        new Chart(ctx, {
-
-            type: "bar",
-
-            data: {
-
-                labels: [
-                    "Ene",
-                    "Feb",
-                    "Mar",
-                    "Abr",
-                    "May",
-                    "Jun"
-                ],
-
-                datasets: [{
-
-                    label: "Capacitaciones",
-
-                    data: [5, 8, 6, 10, 12, 9],
-
-                    backgroundColor: [
-                        "#0d6efd",
-                        "#2196F3",
-                        "#00b4ff",
-                        "#42a5f5",
-                        "#64b5f6",
-                        "#90caf9"
-                    ],
-
-                    borderRadius: 8
-
-                }]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                plugins: {
-
-                    legend: {
-
-                        display: false
-
-                    }
-
-                },
-
-                scales: {
-
-                    y: {
-
-                        beginAtZero: true
-
-                    }
-
-                }
-
+            const cuerpoTabla = document.getElementById('cuerpoTablaDashboard');
+            if (cuerpoTabla) {
+                cuerpoTabla.innerHTML = '';
+                data.recientes.forEach(item => {
+                    const fila = document.createElement('tr');
+                    fila.innerHTML = `
+                        <td>${item.nombre}</td>
+                        <td>${item.modalidad}</td>
+                        <td>${item.fecha_inicio}</td>
+                        <td>${item.cupo_maximo}</td>
+                    `;
+                    cuerpoTabla.appendChild(fila);
+                });
             }
 
-        });
-
-    }
-
-});
-//======================================
-// BOTÓN DE NOTIFICACIONES
-//======================================
-
-const notification = document.querySelector(".notification");
-
-if (notification) {
-
-    notification.addEventListener("click", function () {
-
-        alert("No tienes nuevas notificaciones.");
-
-    });
-
-}
-
-//======================================
-// CONFIRMAR CERRAR SESIÓN
-//======================================
-
-const logout = document.querySelector(".logout a");
-
-if (logout) {
-
-    logout.addEventListener("click", function (e) {
-
-        const salir = confirm("¿Desea cerrar la sesión?");
-
-        if (!salir) {
-
-            e.preventDefault();
-
+            renderizarGrafico(data.tarjetas);
         }
-
-    });
-
+    })
+    .catch(error => console.error('Error al cargar dashboard:', error));
 }
 
-//======================================
-// EFECTO EN TARJETAS
-//======================================
-
-const cards = document.querySelectorAll(".card");
-
-cards.forEach(card => {
-
-    card.addEventListener("mouseenter", () => {
-
-        card.style.transform = "translateY(-8px) scale(1.02)";
-
+function renderizarGrafico(tarjetas) {
+    const ctx = document.getElementById('miGrafico');
+    if (!ctx) return;
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Empleados', 'Cursos Activos', 'Inscripciones', 'Certificados'],
+            datasets: [{
+                label: 'Métricas del Sistema',
+                data: [tarjetas.empleados, tarjetas.capacitaciones, tarjetas.inscripciones, tarjetas.certificados],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)'
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
     });
-
-    card.addEventListener("mouseleave", () => {
-
-        card.style.transform = "translateY(0) scale(1)";
-
-    });
-
-});
-
-//======================================
-// EFECTO EN BOTONES RÁPIDOS
-//======================================
-
-const botones = document.querySelectorAll(".quick-buttons button");
-
-botones.forEach(boton => {
-
-    boton.addEventListener("click", function () {
-
-        alert("Esta opción estará disponible en el siguiente módulo.");
-
-    });
-
-});
-
-//======================================
-// MENÚ ACTIVO
-//======================================
-
-const menuItems = document.querySelectorAll(".menu li");
-
-menuItems.forEach(item => {
-
-    item.addEventListener("click", function () {
-
-        menuItems.forEach(i => i.classList.remove("active"));
-
-        this.classList.add("active");
-
-    });
-
-});
-
-//======================================
-// ANIMACIÓN DE ENTRADA
-//======================================
-
-window.addEventListener("load", () => {
-
-    document.querySelector(".main-content").style.opacity = "1";
-
-});
+}

@@ -1,149 +1,123 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Empleados | Sistema de Capacitación</title>
-
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/empleados.css">
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <style>
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
+        .modal-content { background-color: #fff; margin: 5% auto; padding: 20px; border-radius: 8px; width: 80%; max-width: 500px; font-family: 'Poppins', sans-serif; }
+        .cerrar { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .cerrar:hover { color: #000; }
+        .modal-content form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+        .modal-content label { font-weight: 500; }
+        .modal-content input { padding: 10px; border: 1px solid #ccc; border-radius: 5px; outline: none; font-family: 'Poppins', sans-serif; }
+        .modal-content button { background-color: #0062ff; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 500; }
+        .modal-content button:hover { background-color: #004ecc; }
+    </style>
 </head>
-
 <body>
-
 <div class="container">
-
     <aside class="sidebar">
-
         <div class="logo">
-
             <i class="fa-solid fa-graduation-cap"></i>
-
             <span>Novatech</span>
-
         </div>
-
         <ul class="menu">
-
             <li>
                 <a href="dashboard.html">
                     <i class="fa-solid fa-house"></i>
                     <span>Inicio</span>
                 </a>
             </li>
-
             <li>
                 <a href="usuarios.html">
                     <i class="fa-solid fa-users"></i>
                     <span>Usuarios</span>
                 </a>
             </li>
-
             <li class="active">
                 <a href="empleados.html">
                     <i class="fa-solid fa-user-tie"></i>
                     <span>Empleados</span>
                 </a>
             </li>
-
+            <li>
+                <a href="capacitaciones.html">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Capacitaciones</span>
+                </a>
+            </li>
             <li class="logout">
-                <a href="login.html">
+                <a href="index.html">
                     <i class="fa-solid fa-right-from-bracket"></i>
                     <span>Cerrar sesión</span>
                 </a>
             </li>
-
         </ul>
-
     </aside>
 
     <main class="main-content">
-
         <header class="header">
-
             <div class="header-left">
-
                 <h1>Gestión de Empleados</h1>
-
-                <p>Administración de empleados registrados</p>
-
+                <p>Administración del personal de la empresa</p>
             </div>
-
         </header>
 
         <section class="panel">
-
             <div class="panel-header">
-
                 <h3>Listado de Empleados</h3>
-
-                <button>Nuevo Empleado</button>
-
+                <button id="btnNuevoEmpleado">Nuevo Empleado</button>
             </div>
-
             <table>
-
                 <thead>
-
                     <tr>
-
                         <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Cargo</th>
-                        <th>Departamento</th>
-                        <th>Estado</th>
+                        <th>Nombres</th>
+                        <th>Primer Apellido</th>
+                        <th>Segundo Apellido</th>
+                        <th>CI</th>
                         <th>Acciones</th>
-
                     </tr>
-
                 </thead>
-
-                <tbody>
-
-                    <tr>
-
-                        <td>1</td>
-                        <td>Juan Pérez</td>
-                        <td>Analista de Sistemas</td>
-                        <td>Tecnología</td>
-                        <td><span class="estado activo">Activo</span></td>
-
-                        <td>
-
-                            <button class="btn-editar">
-                                <i class="fa-solid fa-pen"></i>
-                            </button>
-
-                            <button class="btn-eliminar">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-
-                        </td>
-
-                    </tr>
-
+                <tbody id="cuerpoTablaEmpleados">
                 </tbody>
-
             </table>
-
         </section>
-
     </main>
+</div>
 
+<div id="modalEmpleado" class="modal">
+    <div class="modal-content">
+        <span class="cerrar" id="cerrarModal">&times;</span>
+        <h2>Registrar Nuevo Empleado</h2>
+        <form id="formEmpleado">
+            <div>
+                <label>Nombres</label>
+                <input type="text" name="nombre" required>
+            </div>
+            <div>
+                <label>Primer Apellido</label>
+                <input type="text" name="apellido1" required>
+            </div>
+            <div>
+                <label>Segundo Apellido</label>
+                <input type="text" name="apellido2">
+            </div>
+            <div>
+                <label>Carnet de Identidad (CI)</label>
+                <input type="text" name="ci" required>
+            </div>
+            <button type="submit">Guardar Empleado</button>
+        </form>
+    </div>
 </div>
 
 <script src="js/empleados.js"></script>
-
 </body>
-
 </html>

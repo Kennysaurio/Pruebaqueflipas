@@ -1,48 +1,104 @@
-//=====================================
-// GESTIÓN DE PROGRAMACIONES
-//=====================================
+document.addEventListener('DOMContentLoaded', function() {
+    cargarProgramaciones();
 
-// Nueva Programación
-const btnNueva = document.querySelector(".panel-header button");
+    const btnNuevo = document.getElementById('btnNuevaProgramacion');
+    const modal = document.getElementById('modalProgramacion');
+    const btnCerrar = document.getElementById('cerrarModal');
+    const formProgramacion = document.getElementById('formProgramacion');
 
-if (btnNueva) {
+    if (btnNuevo) {
+        btnNuevo.addEventListener('click', function() {
+            modal.style.display = 'block';
+        });
+    }
 
-    btnNueva.addEventListener("click", () => {
+    if (btnCerrar) {
+        btnCerrar.addEventListener('click', function() {
+            modal.style.display = 'none';
+            formProgramacion.reset();
+        });
+    }
 
-        alert("Formulario de nueva programación (Próximamente).");
+    if (formProgramacion) {
+        formProgramacion.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(formProgramacion);
+            formData.append('accion', 'crear');
 
-    });
+            fetch('php/programaciones.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.success) {
+                    formProgramacion.reset();
+                    modal.style.display = 'none';
+                    cargarProgramaciones();
+                }
+            })
+            .catch(error => console.error('Error en la petición:', error));
+        });
+    }
+});
 
+function cargarProgramaciones() {
+    const cuerpoTabla = document.getElementById('cuerpoTablaProgramaciones');
+    if (!cuerpoTabla) return;
+
+    const formData = new FormData();
+    formData.append('accion', 'leer');
+
+    fetch('php/programaciones.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            cuerpoTabla.innerHTML = '';
+            data.data.forEach(prog => {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `
+                    <td>${prog.id_programacion}</td>
+                    <td>${prog.capacitacion}</td>
+                    <td>${prog.fecha_inicio} al ${prog.fecha_fin}</td>
+                    <td>${prog.hora_inicio} - ${prog.hora_fin}</td>
+                    <td>${prog.lugar}</td>
+                    <td>${prog.cupo_maximo}</td>
+                    <td>
+                        <button class="btn-editar"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="eliminarProgramacion(${prog.id_programacion})" class="btn-eliminar">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                cuerpoTabla.appendChild(fila);
+            });
+        }
+    })
+    .catch(error => console.error('Error al cargar datos:', error));
 }
 
-// Editar Programación
-const botonesEditar = document.querySelectorAll(".btn-editar");
+function eliminarProgramacion(id) {
+    if (confirm('¿Está seguro de que desea eliminar esta programación del sistema?')) {
+        const formData = new FormData();
+        formData.append('accion', 'eliminar');
+        formData.append('id_programacion', id);
 
-botonesEditar.forEach(boton => {
-
-    boton.addEventListener("click", () => {
-
-        alert("Editar programación.");
-
-    });
-
-});
-
-// Eliminar Programación
-const botonesEliminar = document.querySelectorAll(".btn-eliminar");
-
-botonesEliminar.forEach(boton => {
-
-    boton.addEventListener("click", () => {
-
-        const confirmar = confirm("¿Desea eliminar esta programación?");
-
-        if (confirmar) {
-
-            alert("Programación eliminada.");
-
-        }
-
-    });
-
-});
+        fetch('php/programaciones.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.success) {
+                cargarProgramaciones();
+            }
+        })
+        .catch(error => console.error('Error al eliminar:', error));
+    }
+}
