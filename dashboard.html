@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Sistema de Capacitación</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/dashboard.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ========= SIDEBAR ========= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-graduation-cap"></i>
+
+            <span>Novatech</span>
+
+        </div>
+
+        <ul class="menu">
+
+            <li class="active">
+                <a href="#">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Usuarios</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Empleados</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Capacitaciones</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Programaciones</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <span>Inscripciones</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-award"></i>
+                    <span>Certificados</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-chart-column"></i>
+                    <span>Reportes</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Configuración</span>
+                </a>
+            </li>
+
+            <li class="logout">
+                <a href="index.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Cerrar sesión</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <!-- ========= CONTENIDO ========= -->
+
+    <main class="main-content">
+            <!--========== HEADER ==========-->
+
+        <header class="header">
+
+            <div class="header-left">
+
+                <h1>Panel de Control</h1>
+
+                <p>Bienvenido al Sistema de Capacitación</p>
+
+            </div>
+
+            <div class="header-right">
+
+                <button class="notification">
+
+                    <i class="fa-solid fa-bell"></i>
+
+                    <span class="badge">3</span>
+
+                </button>
+
+                <div class="profile">
+
+                    <img src="img/user.png" alt="Usuario">
+
+                    <div>
+
+                        <h4>Administrador</h4>
+
+                        <small>Recursos Humanos</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!--========== TARJETAS ==========-->
+
+        <section class="cards">
+
+            <div class="card">
+
+                <i class="fa-solid fa-users"></i>
+
+                <div>
+
+                    <h2>250</h2>
+
+                    <p>Empleados</p>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-book-open"></i>
+
+                <div>
+
+                    <h2>18</h2>
+
+                    <p>Capacitaciones</p>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-award"></i>
+
+                <div>
+
+                    <h2>145</h2>
+
+                    <p>Certificados</p>
+
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <div>
+
+                    <h2>32</h2>
+
+                    <p>Reportes</p>
+
+                </div>
+
+            </div>
+
+        </section>
+        <!--========== CONTENIDO PRINCIPAL ==========-->
+
+        <section class="dashboard-content">
+
+            <!--====== PANEL IZQUIERDO ======-->
+
+            <div class="left-panel">
+
+                <!-- Gráfico -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>Resumen de Capacitaciones</h3>
+
+                        <button>Ver más</button>
+
+                    </div>
+
+                    <canvas id="graficoCapacitaciones"></canvas>
+
+                </div>
+
+                <!-- Últimas capacitaciones -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>Últimas Capacitaciones</h3>
+
+                    </div>
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Curso</th>
+                                <th>Instructor</th>
+                                <th>Estado</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td>Seguridad Informática</td>
+
+                                <td>Juan Pérez</td>
+
+                                <td><span class="estado activo">Activo</span></td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>Inteligencia Artificial</td>
+
+                                <td>María López</td>
+
+                                <td><span class="estado pendiente">Pendiente</span></td>
+
+                            </tr>
+
+                            <tr>
+
+                                <td>Base de Datos SQL</td>
+
+                                <td>Carlos Rojas</td>
+
+                                <td><span class="estado finalizado">Finalizado</span></td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <!--====== PANEL DERECHO ======-->
+
+            <div class="right-panel">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>Próximas Actividades</h3>
+
+                    </div>
+
+                    <ul class="activity-list">
+
+                        <li>
+
+                            <strong>28 Julio</strong>
+
+                            <p>Curso de Seguridad Informática</p>
+
+                        </li>
+
+                        <li>
+
+                            <strong>30 Julio</strong>
+
+                            <p>Capacitación de SQL Server</p>
+
+                        </li>
+
+                        <li>
+
+                            <strong>02 Agosto</strong>
+
+                            <p>Curso de Laravel</p>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>Accesos Rápidos</h3>
+
+                    </div>
+
+                    <div class="quick-buttons">
+
+                        <button>Nuevo Curso</button>
+
+                        <button>Registrar Empleado</button>
+
+                        <button>Nuevo Reporte</button>
+
+                        <button>Emitir Certificado</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- JavaScript -->
+<script src="js/dashboard.js"></script>
+
+</body>
+
+</html>

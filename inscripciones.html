@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inscripciones | Sistema de Capacitación</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/inscripciones.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-graduation-cap"></i>
+
+            <span>Novatech</span>
+
+        </div>
+
+        <ul class="menu">
+
+            <li>
+                <a href="dashboard.html">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="usuarios.html">
+                    <i class="fa-solid fa-users"></i>
+                    <span>Usuarios</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="empleados.html">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>Empleados</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="capacitaciones.html">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>Capacitaciones</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="programaciones.html">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Programaciones</span>
+                </a>
+            </li>
+
+            <li class="active">
+                <a href="inscripciones.html">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Inscripciones</span>
+                </a>
+            </li>
+
+            <li class="logout">
+                <a href="login.html">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Cerrar sesión</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="header">
+
+            <div class="header-left">
+
+                <h1>Gestión de Inscripciones</h1>
+
+                <p>Administración de las inscripciones de empleados</p>
+
+            </div>
+
+        </header>
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <h3>Listado de Inscripciones</h3>
+
+                <button>Nueva Inscripción</button>
+
+            </div>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Empleado</th>
+                        <th>Capacitación</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>1</td>
+
+                        <td>Juan Pérez</td>
+
+                        <td>Seguridad Informática</td>
+
+                        <td>10/08/2026</td>
+
+                        <td>
+                            <span class="estado activo">Inscrito</span>
+                        </td>
+
+                        <td>
+
+                            <button class="btn-editar">
+
+                                <i class="fa-solid fa-pen"></i>
+
+                            </button>
+
+                            <button class="btn-eliminar">
+
+                                <i class="fa-solid fa-trash"></i>
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="js/inscripciones.js"></script>
+
+</body>
+
+</html>
