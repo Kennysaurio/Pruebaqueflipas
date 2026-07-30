@@ -4,10 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscripciones | Sistema de Capacitación</title>
+    
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/inscripciones.css">
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    
+    <!-- Librerías indispensables para la generación de reportes y exportación en PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    
     <style>
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
         .modal-content { background-color: #fff; margin: 5% auto; padding: 20px; border-radius: 8px; width: 80%; max-width: 500px; font-family: 'Poppins', sans-serif; }
@@ -16,8 +23,9 @@
         .modal-content form { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
         .modal-content label { font-weight: 500; }
         .modal-content input, .modal-content select { padding: 10px; border: 1px solid #ccc; border-radius: 5px; outline: none; font-family: 'Poppins', sans-serif; }
-        .modal-content button { background-color: #0062ff; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 500; margin-top: 10px; }
-        .modal-content button:hover { background-color: #004ecc; }
+        .modal-content button { background-color: #0d6efd; color: white; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-family: 'Poppins', sans-serif; font-weight: 500; margin-top: 10px; transition: background-color 0.3s; }
+        .modal-content button:hover { background-color: #0b5ed7; }
+        .botones-accion button { display: flex; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif; font-weight: 500; }
     </style>
 </head>
 <body>
@@ -64,6 +72,18 @@
                     <span>Inscripciones</span>
                 </a>
             </li>
+            <li>
+                <a href="certificados.html">
+                    <i class="fa-solid fa-certificate"></i>
+                    <span>Certificados</span>
+                </a>
+            </li>
+            <li>
+                <a href="reportes.html">
+                    <i class="fa-solid fa-chart-bar"></i>
+                    <span>Reportes</span>
+                </a>
+            </li>
             <li class="logout">
                 <a href="index.html">
                     <i class="fa-solid fa-right-from-bracket"></i>
@@ -82,9 +102,21 @@
         </header>
 
         <section class="panel">
-            <div class="panel-header">
+            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
                 <h3>Listado de Inscripciones</h3>
-                <button id="btnNuevaInscripcion">Nueva Inscripción</button>
+                
+                <!-- Arquitectura de los tres botones de gestión y exportación -->
+                <div class="botones-accion" style="display: flex; gap: 10px; align-items: center;">
+                    <button id="btnGenerarPDFGeneral" style="padding: 10px 15px; background-color: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        <i class="fa-solid fa-file-pdf"></i> Reporte General
+                    </button>
+                    <button id="btnModalAsistencia" style="padding: 10px 15px; background-color: #198754; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        <i class="fa-solid fa-list-check"></i> Asistencia por Curso
+                    </button>
+                    <button id="btnNuevaInscripcion" style="padding: 10px 15px; background-color: #0d6efd; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        <i class="fa-solid fa-plus"></i> Nueva Inscripción
+                    </button>
+                </div>
             </div>
             <table>
                 <thead>
@@ -99,12 +131,14 @@
                     </tr>
                 </thead>
                 <tbody id="cuerpoTablaInscripciones">
+                    <!-- Registros dinámicos inyectados por JavaScript -->
                 </tbody>
             </table>
         </section>
     </main>
 </div>
 
+<!-- Ventana Modal Original: Registro de Nueva Inscripción -->
 <div id="modalInscripcion" class="modal">
     <div class="modal-content">
         <span class="cerrar" id="cerrarModal">&times;</span>
@@ -128,6 +162,22 @@
                 </select>
             </div>
             <button type="submit">Guardar Inscripción</button>
+        </form>
+    </div>
+</div>
+
+<!-- Ventana Modal Nueva: Filtro para Control de Asistencia por Curso -->
+<div id="modalAsistencia" class="modal">
+    <div class="modal-content">
+        <span class="cerrar" id="cerrarModalAsistencia">&times;</span>
+        <h2>Reporte de Asistencia por Curso</h2>
+        <p style="margin-bottom: 10px; color: #555; font-size: 14px;">Ingrese el nombre de la capacitación para generar el documento oficial de control de asistencia de los empleados.</p>
+        <form id="formAsistencia">
+            <div>
+                <label>Nombre de la Capacitación</label>
+                <input type="text" name="nombre_capacitacion" required placeholder="Ej: Seguridad Informática">
+            </div>
+            <button type="submit" style="background-color: #198754;">Generar Documento PDF</button>
         </form>
     </div>
 </div>
