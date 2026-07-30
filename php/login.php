@@ -1,52 +1,52 @@
 <?php
-session_start();
 require_once 'conexion.php';
-
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $usuario = isset($_POST['usuario']) ? trim($_POST['usuario']) : '';
-    $contrasena = isset($_POST['contrasena']) ? trim($_POST['contrasena']) : '';
+    $usuarioFormulario = $_POST['usuario'] ?? '';
+    $passwordFormulario = $_POST['password'] ?? '';
 
-    if (empty($usuario) || empty($contrasena)) {
-        echo json_encode(['success' => false, 'message' => 'Debe ingresar su usuario y contraseña.']);
+    if (empty($usuarioFormulario) || empty($passwordFormulario)) {
+        echo json_encode(['success' => false, 'message' => 'Validación fallida: Por favor, complete todos los campos de autenticación obligatorios.']);
         exit;
     }
 
     try {
-        $query = "SELECT u.id_usuario, u.rol, u.estado, e.nombre, e.apellido1 
+        // La consulta estructural une la tabla usuarios con la tabla empleado para permitir la autenticación mediante el Carnet de Identidad
+        $query = "SELECT u.id_usuario, u.contrasena, u.rol 
                   FROM usuarios u 
                   INNER JOIN empleado e ON u.id_empleado = e.id_empleado 
-                  WHERE e.ci = :usuario AND u.contrasena = :contrasena";
-        
+                  WHERE e.ci = :usuario";
+                  
         $stmt = $conexion->prepare($query);
-        $stmt->bindParam(':usuario', $usuario);
-        $stmt->bindParam(':contrasena', $contrasena);
+        $stmt->bindParam(':usuario', $usuarioFormulario);
         $stmt->execute();
-        
-        $user = $stmt->fetch();
 
-        if ($user) {
-            if ($user['estado'] === 'Activo') {
-                $_SESSION['id_usuario'] = $user['id_usuario'];
-                $_SESSION['rol'] = $user['rol'];
-                $_SESSION['nombre_completo'] = $user['nombre'] . ' ' . $user['apellido1'];
+        if ($stmt->rowCount() > 0) {
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($passwordFormulario === $user['contrasena']) {
+                $rolAsignado = $user['rol'];
                 
+                if ($rolAsignado !== 'Gerente' && $rolAsignado !== 'Responsable') {
+                    $rolAsignado = 'Responsable';
+                }
+
                 echo json_encode([
                     'success' => true, 
-                    'message' => 'Acceso autorizado.', 
-                    'rol' => $user['rol']
+                    'message' => 'Autenticación procesada exitosamente. Estableciendo conexión segura con el sistema central.',
+                    'rol' => $rolAsignado
                 ]);
             } else {
-                echo json_encode(['success' => false, 'message' => 'Su cuenta de usuario se encuentra inactiva.']);
+                echo json_encode(['success' => false, 'message' => 'Credenciales denegadas: La contraseña ingresada no coincide con nuestros registros de seguridad.']);
             }
         } else {
-            echo json_encode(['success' => false, 'message' => 'Credenciales incorrectas. Verifique su información.']);
+            echo json_encode(['success' => false, 'message' => 'Acceso denegado: El identificador proporcionado no existe en la base de datos corporativa.']);
         }
     } catch (PDOException $e) {
-        echo json_encode(['success' => false, 'message' => 'Error interno en el servidor de base de datos.']);
+        echo json_encode(['success' => false, 'message' => 'Fallo técnico interno: ' . $e->getMessage()]);
     }
 } else {
-    echo json_encode(['success' => false, 'message' => 'Método de solicitud no permitido.']);
+    echo json_encode(['success' => false, 'message' => 'Error de protocolo HTTP: Método de transmisión no permitido en este controlador.']);
 }
 ?>

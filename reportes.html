@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportes | Sistema de Capacitación</title>
+    
     <link rel="stylesheet" href="css/dashboard.css">
     <link rel="stylesheet" href="css/reportes.css">
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    
+    <!-- Librerías indispensables para la generación de reportes y exportación en PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -83,9 +89,18 @@
         </header>
 
         <section class="panel">
-            <div class="panel-header">
+            <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
                 <h3>Resumen General de Capacitaciones</h3>
-                <button id="btnGenerarReporte" onclick="generarReporte()">Actualizar Reporte</button>
+                
+                <!-- Contenedor estructural de botones gerenciales alineados -->
+                <div class="botones-accion" style="display: flex; gap: 15px; align-items: center;">
+                    <button id="btnGenerarPDF" style="padding: 10px 15px; background-color: #dc3545; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-family: inherit; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-file-pdf"></i> Generar PDF General
+                    </button>
+                    <button id="btnGenerarReporte" onclick="generarReporte()" style="padding: 10px 15px; background-color: #0d6efd; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-family: inherit; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-arrows-rotate"></i> Actualizar Reporte
+                    </button>
+                </div>
             </div>
             <table>
                 <thead>
@@ -99,6 +114,7 @@
                     </tr>
                 </thead>
                 <tbody id="cuerpoTablaReportes">
+                    <!-- Los registros estadísticos se inyectarán de manera asíncrona -->
                 </tbody>
             </table>
         </section>
@@ -106,5 +122,6 @@
 </div>
 
 <script src="js/reportes.js"></script>
+<script src="js/seguridad.js"></script>
 </body>
 </html>

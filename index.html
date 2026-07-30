@@ -46,7 +46,7 @@
         <!-- Panel derecho -->
         <div class="lado-derecho">
 
-            <form class="login">
+            <form class="login" id="formLogin">
 
                 <h2>Bienvenido</h2>
 
@@ -56,11 +56,7 @@
 
                     <i class="fa-solid fa-user"></i>
 
-                    <input
-                        type="text"
-                        name="usuario"
-                        placeholder="Usuario"
-                        required>
+<input type="text" id="usuario" name="usuario" placeholder="Ingrese su usuario" required>
 
                 </div>
 
@@ -68,11 +64,7 @@
 
                     <i class="fa-solid fa-lock"></i>
 
-                    <input
-                        type="password"
-                        name="contrasena"
-                        placeholder="Contraseña"
-                        required>
+ <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
 
                 </div>
 
@@ -102,8 +94,7 @@
 
     </div>
 
-    <script src="js/app.js"></script>
-
+ <script src="js/login.js"></script>
 </body>
 
 </html>

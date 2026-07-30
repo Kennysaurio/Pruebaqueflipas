@@ -1,141 +1,137 @@
-/*=====================================
-    BOTÓN NUEVO CERTIFICADO
-======================================*/
-
-.panel-header button{
-
-    background:#0d6efd;
-
-    color:white;
-
-    border:none;
-
-    padding:10px 18px;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-    font-weight:600;
-
-    transition:.3s;
-
+/* Configuración de la caja de acciones en la cabecera de la tabla */
+.botones-accion {
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
-.panel-header button:hover{
-
-    background:#0b5ed7;
-
+/* Propiedades del botón de exportación PDF */
+.btn-exportar {
+    padding: 10px 15px;
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: inherit;
 }
 
-/*=====================================
-            TABLA
-======================================*/
-
-table{
-
-    width:100%;
-
-    border-collapse:collapse;
-
-    margin-top:15px;
-
+.btn-exportar:hover {
+    background-color: #bb2d3b;
 }
 
-thead{
-
-    background:#0d6efd;
-
-    color:white;
-
+/* Propiedades del botón principal de emisión */
+.btn-primario {
+    padding: 10px 15px;
+    background-color: #0d6efd;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: inherit;
 }
 
-th,
-td{
-
-    padding:15px;
-
-    text-align:left;
-
+.btn-primario:hover {
+    background-color: #0b5ed7;
 }
 
-td{
-
-    border-bottom:1px solid #e5e7eb;
-
+/* Propiedades de superposición para la ventana modal */
+.modal-oculto {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
 }
 
-tbody tr:hover{
-
-    background:#f5f9ff;
-
+.modal-visible {
+    display: flex;
 }
 
-/*=====================================
-        BOTONES CRUD
-======================================*/
-
-.btn-editar,
-.btn-eliminar{
-
-    width:36px;
-
-    height:36px;
-
-    border:none;
-
-    border-radius:8px;
-
-    cursor:pointer;
-
-    margin-right:5px;
-
-    transition:.3s;
-
+/* Arquitectura visual del contenedor del formulario */
+.modal-contenido {
+    background-color: #ffffff;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    margin: 10% auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    animation: aparecerModal 0.3s ease-out;
 }
 
-.btn-editar{
-
-    background:#ffc107;
-
-    color:#212529;
-
+@keyframes aparecerModal {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
-.btn-editar:hover{
-
-    background:#e0a800;
-
+.modal-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #eeeeee;
 }
 
-.btn-eliminar{
-
-    background:#dc3545;
-
-    color:white;
-
+.btn-cerrar-modal {
+    font-size: 24px;
+    font-weight: bold;
+    color: #888888;
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
-.btn-eliminar:hover{
-
-    background:#bb2d3b;
-
+.btn-cerrar-modal:hover {
+    color: #333333;
 }
 
-/*=====================================
-            RESPONSIVE
-======================================*/
+.modal-cuerpo {
+    padding: 20px;
+}
 
-@media(max-width:768px){
+.grupo-entrada {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
 
-    table{
+.grupo-entrada label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #333333;
+}
 
-        display:block;
+.grupo-entrada input {
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+}
 
-        overflow-x:auto;
+.btn-guardar {
+    width: 100%;
+    padding: 12px;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
 
-        white-space:nowrap;
-
-    }
-
+.btn-guardar:hover {
+    background-color: #0b5ed7;
 }

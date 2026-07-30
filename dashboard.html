@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Sistema de Capacitación</title>
-    
-    <!-- Hojas de estilo principales -->
+
+    <!-- Hojas de estilo en cascada -->
     <link rel="stylesheet" href="css/dashboard.css">
-    
-    <!-- Fuentes tipográficas externas -->
+
+    <!-- Importación de tipografías corporativas -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Librería de iconos -->
+
+    <!-- Librería de recursos gráficos e iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    
-    <!-- Librería externa para generación de gráficos estadísticos -->
+
+    <!-- Librería externa para generación de métricas gráficas -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
 <div class="container">
 
-    <!-- Panel de navegación lateral izquierdo -->
+    <!-- ========= BARRA DE NAVEGACIÓN LATERAL ========= -->
     <aside class="sidebar">
         <div class="logo">
             <i class="fa-solid fa-graduation-cap"></i>
@@ -60,19 +62,19 @@
             </li>
             <li>
                 <a href="inscripciones.html">
-                    <i class="fa-solid fa-clipboard-list"></i>
+                    <i class="fa-solid fa-file-signature"></i>
                     <span>Inscripciones</span>
                 </a>
             </li>
             <li>
                 <a href="certificados.html">
-                    <i class="fa-solid fa-certificate"></i>
+                    <i class="fa-solid fa-award"></i>
                     <span>Certificados</span>
                 </a>
             </li>
             <li>
                 <a href="reportes.html">
-                    <i class="fa-solid fa-chart-bar"></i>
+                    <i class="fa-solid fa-chart-column"></i>
                     <span>Reportes</span>
                 </a>
             </li>
@@ -85,88 +87,142 @@
         </ul>
     </aside>
 
-    <!-- Contenedor del contenido principal -->
+    <!-- ========= CONTENEDOR PRINCIPAL DEL SISTEMA ========= -->
     <main class="main-content">
         
-        <!-- Cabecera del panel de control -->
+        <!--========== CABECERA SUPERIOR ==========-->
         <header class="header">
             <div class="header-left">
-                <h1>Panel Principal</h1>
-                <p>Resumen general del sistema de capacitación y métricas de rendimiento</p>
+                <h1>Panel de Control</h1>
+                <p>Bienvenido al Sistema de Gestión de Capacitaciones</p>
+            </div>
+            <div class="header-right">
+                <!-- Contenedor de perfil dinámico con identificadores inyectados -->
+                <div class="profile">
+                    <img src="img/user.png" alt="Fotografía del Usuario Operativo" id="imgPerfilUsuario">
+                    <div>
+                        <h4 id="nombreRolUsuario">Autenticando...</h4>
+                        <small id="departamentoUsuario">Cargando área...</small>
+                    </div>
+                </div>
             </div>
         </header>
 
-        <!-- Sección de tarjetas de indicadores estadísticos -->
-        <div class="cards">
+        <!--========== SECCIÓN DE TARJETAS ESTADÍSTICAS ==========-->
+        <section class="cards">
             <div class="card">
+                <i class="fa-solid fa-users card-icon"></i>
                 <div class="card-info">
-                    <h3>Total Empleados</h3>
-                    <span id="totEmpleados">0</span>
+                    <h2 id="totEmpleados">0</h2>
+                    <p>Total Empleados</p>
                 </div>
-                <i class="fa-solid fa-user-tie card-icon"></i>
             </div>
             
-            <div class="card">
-                <div class="card-info">
-                    <h3>Cursos Activos</h3>
-                    <span id="totCapacitaciones">0</span>
-                </div>
+            <div class="card" onclick="window.location.href='capacitaciones.html'" style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <i class="fa-solid fa-book-open card-icon"></i>
+                <div class="card-info">
+                    <h2 id="totCapacitaciones">0</h2>
+                    <p>Cursos Activos</p>
+                </div>
             </div>
             
             <div class="card">
-                <div class="card-info">
-                    <h3>Inscripciones</h3>
-                    <span id="totInscripciones">0</span>
-                </div>
                 <i class="fa-solid fa-clipboard-list card-icon"></i>
+                <div class="card-info">
+                    <h2 id="totInscripciones">0</h2>
+                    <p>Inscripciones</p>
+                </div>
             </div>
             
             <div class="card">
-                <div class="card-info">
-                    <h3>Certificados</h3>
-                    <span id="totCertificados">0</span>
-                </div>
                 <i class="fa-solid fa-certificate card-icon"></i>
-            </div>
-        </div>
-
-        <!-- Sección de la tabla de programaciones recientes -->
-        <section class="panel">
-            <div class="panel-header">
-                <h3>Programaciones de Capacitación Recientes</h3>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Capacitación</th>
-                        <th>Modalidad</th>
-                        <th>Fecha de Inicio</th>
-                        <th>Cupo Máximo Asignado</th>
-                    </tr>
-                </thead>
-                <tbody id="cuerpoTablaDashboard">
-                    <!-- Las filas de la tabla serán inyectadas de manera dinámica por JavaScript -->
-                </tbody>
-            </table>
-        </section>
-        
-        <!-- Sección del contenedor gráfico estadístico -->
-        <section class="panel" style="margin-top: 20px;">
-            <div class="panel-header">
-                <h3>Análisis Gráfico de Participación Institucional</h3>
-            </div>
-            <div style="width: 100%; max-width: 700px; margin: auto; padding: 20px 0;">
-                <canvas id="miGrafico"></canvas>
+                <div class="card-info">
+                    <h2 id="totCertificados">0</h2>
+                    <p>Certificados</p>
+                </div>
             </div>
         </section>
 
+        <!--========== MATRICES DE INFORMACIÓN Y PANELES ==========-->
+        <section class="dashboard-content">
+
+            <!--====== DIVISIÓN ESTRUCTURAL IZQUIERDA ======-->
+            <div class="left-panel">
+                
+                <!-- Contenedor del lienzo matemático para el gráfico -->
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Análisis General de Participación</h3>
+                    </div>
+                    <div style="width: 100%; max-width: 600px; margin: auto;">
+                        <canvas id="miGrafico"></canvas>
+                    </div>
+                </div>
+
+                <!-- Contenedor tabular para los registros de base de datos -->
+                <div class="panel" style="margin-top: 20px;">
+                    <div class="panel-header">
+                        <h3>Programaciones de Capacitación Recientes</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nombre de Capacitación</th>
+                                <th>Modalidad Asignada</th>
+                                <th>Fecha de Inicio</th>
+                                <th>Cupo Máximo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTablaDashboard">
+                            <!-- Los nodos estructurales de la tabla se generarán asíncronamente -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!--====== DIVISIÓN ESTRUCTURAL DERECHA ======-->
+            <div class="right-panel">
+                
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Cronograma de Actividades Próximas</h3>
+                    </div>
+                    <ul class="activity-list">
+                        <li>
+                            <strong>28 Julio</strong>
+                            <p>Taller Avanzado de Seguridad Informática</p>
+                        </li>
+                        <li>
+                            <strong>30 Julio</strong>
+                            <p>Capacitación Integral de SQL Server</p>
+                        </li>
+                        <li>
+                            <strong>02 Agosto</strong>
+                            <p>Curso de Desarrollo con Framework Laravel</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="panel" style="margin-top: 20px;">
+                    <div class="panel-header">
+                        <h3>Accesos Directos del Sistema</h3>
+                    </div>
+                    <div class="quick-buttons">
+                        <button onclick="window.location.href='capacitaciones.html'">Registrar Nuevo Curso</button>
+                        <button onclick="window.location.href='empleados.html'">Alta de Personal Empleado</button>
+                        <button onclick="window.location.href='reportes.html'">Generar Reporte Gerencial</button>
+                        <button onclick="window.location.href='certificados.html'">Emisión de Certificados</button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
     </main>
 
 </div>
 
-<!-- Archivo de rutinas lógicas del lado del cliente -->
+<!-- Rutinas lógicas para el enmascaramiento visual según el nivel jerárquico -->
 <script src="js/dashboard.js"></script>
-
+<script src="js/seguridad.js"></script>
 </body>
 </html>

@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const formLogin = document.querySelector('form');
+    // Protocolo de limpieza de seguridad: Destruye cualquier sesión huérfana al cargar la página principal
+    localStorage.removeItem('rolUsuario');
+
+    const formLogin = document.getElementById('formLogin');
     
-    if(formLogin) {
+    if (formLogin) {
         formLogin.addEventListener('submit', function(e) {
             e.preventDefault();
             
             const formData = new FormData(formLogin);
-            
+
             fetch('php/login.php', {
                 method: 'POST',
                 body: formData
@@ -14,15 +17,20 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Bienvenido al sistema de gestión. Su rol es: ' + data.rol);
-                    window.location.href = 'dashboard.html';
+                    // INSTRUCCIÓN CRÍTICA: Inscripción de la credencial jerárquica en la memoria local del navegador
+                    localStorage.setItem('rolUsuario', data.rol);
+                    
+                    alert(data.message);
+                    
+                    // Transición forzada con reemplazo de historial para evitar conflictos de navegación
+                    window.location.replace('dashboard.html');
                 } else {
                     alert(data.message);
                 }
             })
             .catch(error => {
-                console.error('Error de red o de servidor:', error);
-                alert('Ocurrió un error crítico al intentar conectar con el servidor.');
+                console.error('Fallo en la trazabilidad de la petición asíncrona de red:', error);
+                alert('Fallo crítico de comunicación: El servidor central no ha emitido una respuesta válida.');
             });
         });
     }
