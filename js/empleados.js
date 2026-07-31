@@ -62,11 +62,12 @@ function cargarEmpleados() {
             data.data.forEach(empleado => {
                 const fila = document.createElement('tr');
                 const apellido2 = empleado.apellido2 ? empleado.apellido2 : '';
+                
+                // Los apellidos se unen en una sola celda para respetar las 5 cabeceras del HTML
                 fila.innerHTML = `
                     <td>${empleado.id_empleado}</td>
                     <td>${empleado.nombre}</td>
-                    <td>${empleado.apellido1}</td>
-                    <td>${apellido2}</td>
+                    <td>${empleado.apellido1} ${apellido2}</td>
                     <td>${empleado.ci}</td>
                     <td>
                         <button class="btn-editar"><i class="fa-solid fa-pen"></i></button>

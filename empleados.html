@@ -111,12 +111,11 @@
             <table>
                 <thead>
                     <tr>
+                        <!-- Las cabeceras han sido ajustadas para coincidir con la base de datos de Supabase -->
                         <th>ID</th>
                         <th>Nombres</th>
                         <th>Apellidos</th>
                         <th>Cédula de Identidad</th>
-                        <th>Departamento Asignado</th>
-                        <th>Cargo Operativo</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -136,6 +135,7 @@
             <span class="btn-cerrar-modal" id="cerrarModalEmpleado">&times;</span>
         </div>
         <form id="formEmpleado">
+            <!-- Los campos del formulario han sido depurados para enviar únicamente los datos que admite la tabla public.empleado -->
             <div class="grupo-entrada">
                 <label>Nombres Completos</label>
                 <input type="text" name="nombre" required placeholder="Ingrese los nombres del trabajador">
@@ -155,16 +155,6 @@
             <div class="grupo-entrada">
                 <label>Documento de Identidad (CI)</label>
                 <input type="text" name="ci" required placeholder="Número de identificación oficial">
-            </div>
-            
-            <div class="grupo-entrada">
-                <label>Área o Departamento Corporativo</label>
-                <input type="text" name="departamento" required placeholder="Ej: Tecnologías de la Información">
-            </div>
-            
-            <div class="grupo-entrada">
-                <label>Cargo Desempeñado</label>
-                <input type="text" name="cargo" required placeholder="Ej: Analista de Sistemas">
             </div>
             
             <button type="submit" class="btn-guardar">Registrar Empleado en la Base de Datos</button>
