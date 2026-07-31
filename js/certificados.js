@@ -1,14 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     cargarCertificados();
 
-    // Sincronización estricta de identificadores con el documento de hipertexto
     const btnNuevo = document.getElementById('btnEmitirCertificado');
     const modal = document.getElementById('modalCertificado');
     const btnCerrar = document.getElementById('cerrarModal');
     const formCertificado = document.getElementById('formCertificado');
     const btnGenerarPDF = document.getElementById('btnGenerarPDF');
 
-    // Manejo de eventos visuales para la ventana modal
     if (btnNuevo && modal) {
         btnNuevo.addEventListener('click', function() {
             modal.style.display = 'block';
@@ -29,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Petición asíncrona original para registrar el formulario
     if (formCertificado) {
         formCertificado.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -54,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Rutina inyectada para compilar el reporte gerencial global en formato PDF
     if (btnGenerarPDF) {
         btnGenerarPDF.addEventListener('click', function() {
             if (!window.jspdf) {
@@ -105,7 +101,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Su función preexistente inalterada para la lectura de la base de datos
 function cargarCertificados() {
     const cuerpoTabla = document.getElementById('cuerpoTablaCertificados');
     if (!cuerpoTabla) return;
@@ -122,8 +117,9 @@ function cargarCertificados() {
         if (data.success) {
             cuerpoTabla.innerHTML = '';
             data.data.forEach(certificado => {
-                const nombreCompleto = `${certificado.nombre} ${certificado.apellido1}`;
+                const nombreCompleto = certificado.nombre && certificado.apellido1 ? `${certificado.nombre} ${certificado.apellido1}` : certificado.empleado;
                 const fila = document.createElement('tr');
+                
                 fila.innerHTML = `
                     <td>CERT-${certificado.id_certificado.toString().padStart(4, '0')}</td>
                     <td>${nombreCompleto}</td>
@@ -142,15 +138,15 @@ function cargarCertificados() {
                 cuerpoTabla.appendChild(fila);
             });
             
-            if(typeof aplicarControlDeAccesos === 'function') {
-                aplicarControlDeAccesos();
-            }
+            // Este es el bloque exacto de seguridad corporativa que debe ser neutralizado mediante comentarios
+            // if(typeof aplicarControlDeAccesos === 'function') {
+            //     aplicarControlDeAccesos();
+            // }
         }
     })
     .catch(error => console.error('Error en la extracción de la matriz de datos:', error));
 }
 
-// Su función original para la eliminación de registros
 function eliminarCertificado(id) {
     if (confirm('¿Está usted completamente seguro de que desea eliminar este certificado del sistema corporativo? Esta acción administrativa es de carácter irreversible.')) {
         const formData = new FormData();
@@ -172,7 +168,6 @@ function eliminarCertificado(id) {
     }
 }
 
-// Su algoritmo generador del aval académico individual
 window.descargarCertificado = function(id, nombre, ci, capacitacion, fecha) {
     if (!window.jspdf) {
         alert('Error de dependencias: La librería principal de renderizado de documentos no ha sido cargada correctamente en la cabecera del sistema.');
@@ -189,36 +184,47 @@ window.descargarCertificado = function(id, nombre, ci, capacitacion, fecha) {
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text("SISTEMA DE CAPACITACIÓN CORPORATIVA", 148, 40, { align: "center" });
+    doc.text("SISTEMA DE CAPACITACIÓN CORPORATIVA", 148, 35, { align: "center" });
 
     doc.setFontSize(28);
     doc.setTextColor(0, 98, 255);
-    doc.text("CERTIFICADO DE APROBACIÓN", 148, 70, { align: "center" });
+    doc.text("CERTIFICADO DE APROBACIÓN", 148, 55, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(16);
     doc.setTextColor(0, 0, 0);
-    doc.text("Se otorga el presente aval académico e institucional a favor de:", 148, 100, { align: "center" });
+    doc.text("Se otorga el presente aval académico e institucional a favor de:", 148, 75, { align: "center" });
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(24);
-    doc.text(nombre.toUpperCase(), 148, 120, { align: "center" });
+    doc.text(nombre.toUpperCase(), 148, 95, { align: "center" });
     
     doc.setFont("helvetica", "normal");
     doc.setFontSize(14);
-    doc.text(`Documento de Identificación Personal: ${ci}`, 148, 135, { align: "center" });
+    doc.text(`Documento de Identificación Personal: ${ci}`, 148, 110, { align: "center" });
 
     doc.setFontSize(16);
-    doc.text("Por haber concluido de manera satisfactoria el programa de formación profesional en:", 148, 155, { align: "center" });
+    doc.text("Por haber concluido de manera satisfactoria el programa de formación profesional en:", 148, 130, { align: "center" });
     
     doc.setFont("helvetica", "bold");
     doc.setFontSize(20);
-    doc.text(capacitacion.toUpperCase(), 148, 170, { align: "center" });
+    doc.text(capacitacion.toUpperCase(), 148, 145, { align: "center" });
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
-    doc.text(`Fecha oficial de emisión registrada en el sistema central: ${fecha}`, 148, 190, { align: "center" });
-    doc.text(`CÓDIGO ÚNICO DE REGISTRO INSTITUCIONAL: CERT-${id.toString().padStart(4, '0')}`, 20, 190);
+    doc.text(`Fecha oficial de emisión registrada en el sistema central: ${fecha}`, 148, 155, { align: "center" });
+    
+    doc.setLineWidth(0.5);
+    
+    doc.line(50, 180, 120, 180); 
+    doc.setFontSize(12);
+    doc.text("Firma del Responsable", 85, 185, { align: "center" });
+
+    doc.line(177, 180, 247, 180); 
+    doc.text("Firma de la Gerencia", 212, 185, { align: "center" });
+
+    doc.setFontSize(10);
+    doc.text(`CÓDIGO ÚNICO DE REGISTRO INSTITUCIONAL: CERT-${id.toString().padStart(4, '0')}`, 20, 195);
 
     doc.save(`Certificado_Academico_${ci}.pdf`);
 };
