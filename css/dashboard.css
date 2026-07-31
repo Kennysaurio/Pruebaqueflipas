@@ -809,3 +809,62 @@ canvas{
     }
 
 }
+/* =========================================================
+   REGLAS GLOBALES PARA EL MODO OSCURO (INYECCIÓN DINÁMICA)
+   ========================================================= */
+body.modo-oscuro {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.modo-oscuro .sidebar {
+    background-color: #1a1a1a;
+    border-right: 1px solid #333333;
+}
+
+body.modo-oscuro .sidebar .logo,
+body.modo-oscuro .sidebar .menu li a {
+    color: #e0e0e0;
+}
+
+body.modo-oscuro .sidebar .menu li.active a,
+body.modo-oscuro .sidebar .menu li a:hover {
+    background-color: #2d2d2d;
+    color: #0d6efd;
+}
+
+body.modo-oscuro .header,
+body.modo-oscuro .panel,
+body.modo-oscuro .modal-contenido {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    border: 1px solid #333333;
+}
+
+body.modo-oscuro table th {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border-bottom: 2px solid #444444;
+}
+
+body.modo-oscuro table td {
+    color: #cccccc;
+    border-bottom: 1px solid #333333;
+}
+
+body.modo-oscuro table tr:hover {
+    background-color: #252525;
+}
+
+body.modo-oscuro .grupo-entrada label,
+body.modo-oscuro .modal-cabecera h2 {
+    color: #e0e0e0;
+}
+
+body.modo-oscuro input,
+body.modo-oscuro select {
+    background-color: #2d2d2d;
+    color: #ffffff;
+    border: 1px solid #444444;
+}

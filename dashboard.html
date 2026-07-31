@@ -101,16 +101,19 @@
                 <div class="profile">
                     <img src="img/user.png" alt="Fotografía del Usuario Operativo" id="imgPerfilUsuario">
                     <div>
-                        <h4 id="nombreRolUsuario">Autenticando...</h4>
-                        <small id="departamentoUsuario">Cargando área...</small>
+                        <h4 id="nombreRolUsuario">Gerente</h4>
+                        <small id="departamentoUsuario">Recursos Humanos</small>
                     </div>
                 </div>
+                <button id="btnAlternarTema" style="background-color: transparent; color: inherit; border: 1px solid #ccc; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-family: inherit; font-weight: 500; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-moon"></i> Modo Noche
+        </button>
             </div>
         </header>
 
         <!--========== SECCIÓN DE TARJETAS ESTADÍSTICAS ==========-->
         <section class="cards">
-            <div class="card">
+             <div class="card" onclick="window.location.href='empleados.html'" style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <i class="fa-solid fa-users card-icon"></i>
                 <div class="card-info">
                     <h2 id="totEmpleados">0</h2>
@@ -126,7 +129,7 @@
                 </div>
             </div>
             
-            <div class="card">
+             <div class="card" onclick="window.location.href='inscripciones.html'" style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <i class="fa-solid fa-clipboard-list card-icon"></i>
                 <div class="card-info">
                     <h2 id="totInscripciones">0</h2>
@@ -134,7 +137,7 @@
                 </div>
             </div>
             
-            <div class="card">
+             <div class="card" onclick="window.location.href='certificados.html'" style="cursor: pointer; transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                 <i class="fa-solid fa-certificate card-icon"></i>
                 <div class="card-info">
                     <h2 id="totCertificados">0</h2>
@@ -202,27 +205,13 @@
                         </li>
                     </ul>
                 </div>
-
-                <div class="panel" style="margin-top: 20px;">
-                    <div class="panel-header">
-                        <h3>Accesos Directos del Sistema</h3>
-                    </div>
-                    <div class="quick-buttons">
-                        <button onclick="window.location.href='capacitaciones.html'">Registrar Nuevo Curso</button>
-                        <button onclick="window.location.href='empleados.html'">Alta de Personal Empleado</button>
-                        <button onclick="window.location.href='reportes.html'">Generar Reporte Gerencial</button>
-                        <button onclick="window.location.href='certificados.html'">Emisión de Certificados</button>
-                    </div>
-                </div>
             </div>
-
         </section>
     </main>
-
 </div>
-
 <!-- Rutinas lógicas para el enmascaramiento visual según el nivel jerárquico -->
 <script src="js/dashboard.js"></script>
 <script src="js/seguridad.js"></script>
+<script src="js/tema.js"></script>
 </body>
 </html>
